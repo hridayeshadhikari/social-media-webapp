@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ChatRepository extends JpaRepository<Chat, Integer> {
-    public List<Chat> findByUserId(Integer UserId);
+    public List<Chat> findByUsersId(Integer UserId);
 
-    @Query("select c from Chat c where :user Member c.users And :reqUser Member c.users")
+    @Query("select c from Chat c WHERE :user Member of c.users And :reqUser Member of c.users")
     public Chat findChatByUsersId(@Param("user") User user, @Param("reqUser") User reqUser);
 }

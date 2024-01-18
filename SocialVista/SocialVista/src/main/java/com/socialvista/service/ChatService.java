@@ -9,7 +9,7 @@ public interface ChatService {
 
     public Chat createChat(User reqUser , User user2) throws Exception;
 
-    public Chat findChatByID(Integer chatId) throws Exception;
+
 
     public List<Chat> findAllChatOfUser(Integer userId) throws Exception;
 
