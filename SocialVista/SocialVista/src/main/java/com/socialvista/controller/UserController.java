@@ -1,5 +1,6 @@
 package com.socialvista.controller;
 
+import com.socialvista.Exceptions.UserException;
 import com.socialvista.model.User;
 import com.socialvista.service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/api/user/{id}")
-    public User getUserById(@PathVariable Integer id) throws Exception {
+    public User getUserById(@PathVariable Integer id) throws UserException {
         return userService.findUserById(id);
 
     }
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PutMapping("/api/user/update/{id}")
-    public User updateTheUser(@RequestBody User user,@RequestHeader ("Authorization")String jwt) throws Exception {
+    public User updateTheUser(@RequestBody User user,@RequestHeader ("Authorization")String jwt) throws UserException {
         User reqUser=userService.findUserByToken(jwt);
         User updateUser=userService.updateUser(user,reqUser.getId());
         return updateUser;

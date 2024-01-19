@@ -1,4 +1,5 @@
 package com.socialvista.service;
+import com.socialvista.Exceptions.UserException;
 import com.socialvista.model.User;
 import com.socialvista.repository.UserRepository;
 import com.socialvista.security.JwtProvider;
@@ -32,12 +33,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUserById(Integer id) throws Exception {
+    public User findUserById(Integer id) throws UserException {
         Optional<User> theUser=userRepository.findById(id);
         if(theUser.isPresent()){
             return theUser.get();
         }else {
-            throw new Exception("user not found with id "+id);
+            throw new UserException("user not found with id "+id);
         }
 
     }
@@ -48,12 +49,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User followUser(Integer reqUserId, Integer userId2) throws Exception {
+    public User followUser(Integer reqUserId, Integer userId2) throws UserException {
         User reqUser=findUserById(reqUserId);
         User user2=findUserById(userId2);
         if(reqUser!=user2){
             if(user2.getFollowers().contains(reqUserId)){
-                throw new Exception("already followed");
+                throw new UserException("already followed");
             }else {
             reqUser.getFollowing().add(user2.getId());
             user2.getFollowers().add(reqUser.getId());
@@ -61,16 +62,16 @@ public class UserServiceImpl implements UserService{
             userRepository.save(user2);}
         }else
         {
-            throw new Exception("cant follow to self!");
+            throw new UserException("cant follow to self!");
         }
         return reqUser;
     }
 
     @Override
-    public User updateUser(User user, Integer id) throws Exception {
+    public User updateUser(User user, Integer id) throws UserException {
         Optional<User> user1=userRepository.findById(id);
         if(user1.isEmpty()){
-            throw new Exception("user not found with this id"+id);
+            throw new UserException("user not found with this id"+id);
         }
         User updatedUser=user1.get();
         if(user.getFirstName()!=null){
