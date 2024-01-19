@@ -29,7 +29,14 @@ public class ChatServiceImpl implements ChatService {
        return chatRepository.save(chat);
     }
 
-
+    @Override
+    public Chat findChatByID(Integer chatId) throws Exception {
+        Optional<Chat> opt=chatRepository.findById(chatId);
+        if(opt.isEmpty()){
+            throw new Exception("no chat is found with this id"+chatId);
+        }
+        return opt.get();
+    }
 
     @Override
     public List<Chat> findAllChatOfUser(Integer userId) throws Exception {
