@@ -23,4 +23,9 @@ public class GlobalException {
         ErrorDetails error=new ErrorDetails(ue.getMessage(),req.getDescription(false), LocalDateTime.now());
         return new ResponseEntity<ErrorDetails>(error, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(StoryException.class)
+    public ResponseEntity<ErrorDetails> otherExceptionHandler(StoryException ue, WebRequest req){
+        ErrorDetails error=new ErrorDetails(ue.getMessage(),req.getDescription(false), LocalDateTime.now());
+        return new ResponseEntity<ErrorDetails>(error, HttpStatus.BAD_REQUEST);
+    }
 }
