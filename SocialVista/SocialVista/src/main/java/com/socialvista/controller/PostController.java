@@ -67,7 +67,7 @@ public class PostController {
     }
 
     //like a particular post
-    @PutMapping("/like/post/{postId}")
+    @PutMapping("/api/like/post/{postId}")
     public  ResponseEntity<Post> likePost(@PathVariable Integer postId,
                                           @RequestHeader ("Authorization")String jwt) throws Exception {
         User reqUser=userService.findUserByToken(jwt);

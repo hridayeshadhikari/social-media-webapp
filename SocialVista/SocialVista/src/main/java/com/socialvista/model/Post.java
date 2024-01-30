@@ -24,7 +24,7 @@ public class Post {
     private String video;
     @ManyToOne
     private User user;
-    @OneToMany
+    @ManyToMany
     private List<User> liked=new ArrayList<>();
 
     @OneToMany

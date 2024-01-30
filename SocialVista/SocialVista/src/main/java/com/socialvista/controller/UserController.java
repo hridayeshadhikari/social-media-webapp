@@ -32,7 +32,7 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
-    @PutMapping("/api/user/update/{id}")
+    @PutMapping("/api/user/update")
     public User updateTheUser(@RequestBody User user,@RequestHeader ("Authorization")String jwt) throws UserException {
         User reqUser=userService.findUserByToken(jwt);
         User updateUser=userService.updateUser(user,reqUser.getId());

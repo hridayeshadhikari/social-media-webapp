@@ -45,7 +45,7 @@ public class SecurityFilterConfig {
                 cfg.setAllowCredentials(true);
                 cfg.setExposedHeaders(Arrays.asList("Authorization"));
                 cfg.setMaxAge(3600L);
-                return null;
+                return cfg;
             }
         };
     }
