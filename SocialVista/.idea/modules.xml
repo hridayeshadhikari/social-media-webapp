@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SocialVista/SocialVista/SocialVista.iml" filepath="$PROJECT_DIR$/SocialVista/SocialVista/SocialVista.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SocialVista.iml" filepath="$PROJECT_DIR$/.idea/SocialVista.iml" />
     </modules>
   </component>
 </project>

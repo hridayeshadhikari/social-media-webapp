@@ -29,6 +29,8 @@ public class User {
     private String gender;
     private List<Integer> followers=new ArrayList<>();
     private List<Integer> following=new ArrayList<>();
+    @OneToMany
+    private List<Post> usersPost=new ArrayList<>();
     @JsonIgnore
     @ManyToMany
     private List<Post> savePost=new ArrayList<>();
