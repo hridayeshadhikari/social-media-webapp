@@ -2,6 +2,7 @@ package com.socialvista.controller;
 
 import com.socialvista.model.Post;
 import com.socialvista.model.User;
+import com.socialvista.repository.UserRepository;
 import com.socialvista.service.PostService;
 import com.socialvista.service.UserService;
 import lombok.AllArgsConstructor;
@@ -64,6 +65,12 @@ public class PostController {
         User reqUser=userService.findUserByToken(jwt);
         Post post=postService.savePost(postId, reqUser.getId());
         return new ResponseEntity<Post>(post,HttpStatus.OK);
+    }
+    @GetMapping("/api/posts/save")
+    public ResponseEntity<List<Post>> getSavePost(@RequestHeader ("Authorization")String jwt){
+        User user=userService.findUserByToken(jwt);
+        List<Post> getSavedPost=user.getSavePost();
+        return ResponseEntity.ok(getSavedPost);
     }
 
     //like a particular post
