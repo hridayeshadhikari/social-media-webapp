@@ -32,4 +32,11 @@ public class StoryController {
         return new ResponseEntity<List<Story>>(allStory,HttpStatus.OK);
     }
 
+    @GetMapping("/api/all/stories")
+    public ResponseEntity<List<Story>> getAllUsersStory(@RequestHeader("Authorization") String jwt) throws Exception {
+        User user=userService.findUserByToken(jwt);
+        List<Story> storiesList=storyService.getAllUsersStory(user.getId());
+        return new ResponseEntity<List<Story>>(storiesList,HttpStatus.OK);
+    }
+
 }

@@ -10,6 +10,6 @@ public interface PostService {
     Post findPostById(Integer postId) throws Exception;
     List<Post> findAllPost();
     List<Post> findPostByUserId(Integer userId) throws Exception;
-    Post savePost(Integer userId,Integer postId) throws Exception;
+    List<Post> savePost(Integer userId, Integer postId) throws Exception;
     Post likePost(Integer postId,Integer userId) throws Exception;
 }

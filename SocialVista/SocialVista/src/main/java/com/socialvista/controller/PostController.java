@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -60,11 +61,11 @@ public class PostController {
 
     //saves the post/updates
     @PutMapping("/api/posts/save/{postId}")
-    public ResponseEntity<Post> savePost(@PathVariable Integer postId,
+    public ResponseEntity<List<Post>> savePost(@PathVariable Integer postId,
                                          @RequestHeader ("Authorization")String jwt) throws Exception {
         User reqUser=userService.findUserByToken(jwt);
-        Post post=postService.savePost(postId, reqUser.getId());
-        return new ResponseEntity<Post>(post,HttpStatus.OK);
+        List<Post> post=postService.savePost(postId, reqUser.getId());
+        return new ResponseEntity<List<Post>>(post,HttpStatus.OK);
     }
     @GetMapping("/api/posts/save")
     public ResponseEntity<List<Post>> getSavePost(@RequestHeader ("Authorization")String jwt){

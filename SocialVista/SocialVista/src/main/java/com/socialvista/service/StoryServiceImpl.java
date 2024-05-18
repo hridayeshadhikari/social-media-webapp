@@ -6,9 +6,11 @@ import com.socialvista.model.Story;
 import com.socialvista.model.User;
 import com.socialvista.repository.StoryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,5 +42,18 @@ public class StoryServiceImpl implements StoryService{
         }
         return allStory;
     }
+
+    public List<Story> getAllUsersStory(Integer reqUserId) throws Exception {
+        User user = userService.findUserById(reqUserId);
+        Integer[] arr = user.getFollowing().toArray(new Integer[0]);
+        List<Story> allStories = new ArrayList<>();
+        for (int i = 0; i <= arr.length-1; i++) {
+            List<Story> userStories = storyRepository.findFirstStoryByUserId(arr[i]);
+            allStories.addAll(userStories);
+        }
+        return allStories;
+    }
+
+
 
 }

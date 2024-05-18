@@ -34,4 +34,6 @@ public class CommentController {
         Comment likeComment=commentService.likeComment(commentId, user.getId());
         return likeComment;
     }
+
+
 }

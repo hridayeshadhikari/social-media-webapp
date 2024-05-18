@@ -53,11 +53,17 @@ public class UserServiceImpl implements UserService{
         User reqUser=findUserById(reqUserId);
         User user2=findUserById(userId2);
         if(reqUser!=user2){
+            System.out.println("======="+user2.getFollowers().contains(reqUserId));
+            //already followed the user2
             if(user2.getFollowers().contains(reqUserId)){
-                throw new UserException("already followed");
+                user2.getFollowers().remove(reqUserId);
+                reqUser.getFollowing().remove(userId2);
+                userRepository.save(reqUser);
+                userRepository.save(user2);
+
             }else {
-            reqUser.getFollowing().add(user2.getId());
-            user2.getFollowers().add(reqUser.getId());
+                reqUser.getFollowing().add(userId2);
+                user2.getFollowers().add(reqUserId);
             userRepository.save(reqUser);
             userRepository.save(user2);}
         }else
@@ -89,6 +95,8 @@ public class UserServiceImpl implements UserService{
         User updateUser=userRepository.save(updatedUser);
         return updateUser;
     }
+
+
 
 
 

@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,13 +29,16 @@ public class User {
     private String lastName;
     private String password;
     private String gender;
-    private List<Integer> followers=new ArrayList<>();
-    private List<Integer> following=new ArrayList<>();
+
+    private List<Integer> followers = new ArrayList<>();
+
+
+    private List<Integer> following = new ArrayList<>();
     @OneToMany
     private List<Post> usersPost=new ArrayList<>();
     @JsonIgnore
     @ManyToMany
-    private List<Post> savePost=new ArrayList<>();
+    private List<Post> savePost = new ArrayList<>();
 
 
 

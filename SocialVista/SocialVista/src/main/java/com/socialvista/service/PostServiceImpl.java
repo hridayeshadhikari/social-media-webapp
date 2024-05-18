@@ -62,13 +62,23 @@ public class PostServiceImpl implements PostService{
         return postRepository.findPostByUserId(userId);
     }
 
+    public List<Post> getSavedPosts(Integer userId) throws Exception {
+        User user = userService.findUserById(userId);
+        return user.getSavePost();
+    }
     @Override
-    public Post savePost(Integer postId, Integer userId) throws Exception {
+    public List<Post> savePost(Integer postId, Integer userId) throws Exception {
         User user=userService.findUserById(userId);
         Post post=findPostById(postId);
-        user.getSavePost().add(post);
-        userRepository.save(user);
-        return post;
+        if(user.getSavePost().contains(post)){
+            user.getSavePost().remove(post);
+            userRepository.save(user);
+        }
+        else{
+            user.getSavePost().add(post);
+            userRepository.save(user);
+        }
+        return getSavedPosts(userId);
     }
 
     @Override
