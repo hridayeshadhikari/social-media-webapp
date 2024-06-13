@@ -30,6 +30,10 @@ public class User {
     private String password;
     private String gender;
 
+    private String profileImage;
+    private String coverImage;
+    private String location;
+
     private List<Integer> followers = new ArrayList<>();
 
 

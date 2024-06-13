@@ -4,9 +4,13 @@ import com.socialvista.model.User;
 import com.socialvista.repository.UserRepository;
 import com.socialvista.security.JwtProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @AllArgsConstructor
@@ -92,6 +96,16 @@ public class UserServiceImpl implements UserService{
         if (user.getGender()!=null){
             updatedUser.setGender(user.getGender());
         }
+        if(user.getProfileImage()!=null){
+            updatedUser.setProfileImage(user.getProfileImage());
+        }
+        if(user.getCoverImage()!=null){
+            updatedUser.setCoverImage(user.getCoverImage());
+        }
+        if(user.getLocation()!=null){
+            updatedUser.setLocation(user.getLocation());
+        }
+
         User updateUser=userRepository.save(updatedUser);
         return updateUser;
     }
@@ -111,4 +125,35 @@ public class UserServiceImpl implements UserService{
         User user=userRepository.findByEmail(email);
         return user;
     }
+
+    @Override
+    public List<User> getSuggestedUsers(String location) {
+        return userRepository.suggestedUsers(location);
+    }
+
+    @Override
+    public List<User> getUsersFollower(Integer userId) throws UserException {
+        User user = findUserById(userId);
+        Object[] arr = user.getFollowers().toArray();
+        List<User> followers = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            User follower = findUserById((Integer) arr[i]);
+            followers.add(follower);
+        }
+        return followers;
+    }
+
+    @Override
+    public List<User> getUsersFollowing(Integer userId) throws UserException {
+        User user = findUserById(userId);
+        Object[] arr = user.getFollowing().toArray();
+        List<User> followings=new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            User following = findUserById((Integer) arr[i]);
+            followings.add(following);
+        }
+        return followings;
+    }
+
+
 }

@@ -14,4 +14,10 @@ public interface UserService {
     public User updateUser(User user,Integer id) throws UserException;
     public List<User> searchUser(String query);
     public User findUserByToken(String jwt);
+
+    public List<User> getSuggestedUsers(String location);
+
+    List<User> getUsersFollower(Integer userId) throws UserException;
+
+    List<User> getUsersFollowing(Integer userId) throws UserException;
 }

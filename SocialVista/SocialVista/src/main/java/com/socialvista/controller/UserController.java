@@ -5,6 +5,8 @@ import com.socialvista.model.User;
 import com.socialvista.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,4 +58,23 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/api/user/suggested")
+    public ResponseEntity<List<User>> getSuggestedUsers(@RequestHeader ("Authorization")String jwt){
+        User user=userService.findUserByToken(jwt);
+        String userLocation=user.getLocation();
+        List<User> users=userService.getSuggestedUsers(userLocation);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/user/follower/{userId}")
+    public ResponseEntity<List<User>> getUserFollowers(@PathVariable Integer userId) throws UserException {
+        List<User> users=userService.getUsersFollower(userId);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
+
+    @GetMapping("/api/user/following/{userId}")
+    public ResponseEntity<List<User>> getUserFollowing(@PathVariable Integer userId) throws UserException {
+        List<User> users=userService.getUsersFollowing(userId);
+        return new ResponseEntity<>(users,HttpStatus.OK);
+    }
 }
