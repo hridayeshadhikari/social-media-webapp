@@ -5,6 +5,8 @@ import com.socialvista.model.User;
 import com.socialvista.service.ReelService;
 import com.socialvista.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,5 +36,12 @@ public class ReelController {
     public List<Reel> reelOfUser(@PathVariable Integer userId) throws Exception {
         List<Reel> createdReel=reelService.findUsersReel(userId);
         return createdReel;
+    }
+
+    @PutMapping("/api/reel/like/{reelId}")
+    public ResponseEntity<Reel> likeReel(@RequestHeader("Authorization") String jwt, @PathVariable Integer reelId) throws Exception {
+        User user=userService.findUserByToken(jwt);
+        Reel reel=reelService.likeTheReel(reelId,user.getId());
+        return new ResponseEntity<>(reel, HttpStatus.OK);
     }
 }
