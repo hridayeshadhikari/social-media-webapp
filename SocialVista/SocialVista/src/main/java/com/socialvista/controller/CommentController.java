@@ -35,5 +35,14 @@ public class CommentController {
         return likeComment;
     }
 
+    @PostMapping("/api/reel/comment/{reelId}")
+    public Comment createReelComment(@RequestBody Comment comment,
+                                 @RequestHeader ("Authorization")String jwt,
+                                 @PathVariable Integer reelId) throws Exception {
+        User user=userService.findUserByToken(jwt);
+        Comment commentDone=commentService.createReelComment(comment, user.getId(), reelId);
+        return commentDone;
+    }
+
 
 }
